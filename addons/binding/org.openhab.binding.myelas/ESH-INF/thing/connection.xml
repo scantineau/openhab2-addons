@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="myelas"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="connection">
+		<label>MyElas alarm info</label>
+		<description>Tip : create new user on MyElas WebUi</description>
+	    
+        <channels>
+            <channel id="offlineStatus" typeId="offlineStatus" />
+            <channel id="ongoingAlarm" typeId="ongoingAlarm" />
+        </channels>
+	    
+	    <config-description>
+<!--             <parameter name="connectionIdentifier" type="text" required="true">
+                <label>Identifier for your connection</label>
+                <description>Must be unique.</description>
+                <default>maison</default>
+            </parameter>		
+ -->            
+            <parameter name="webUIUrl" type="text" required="true">
+                <label>url to MyElas WEB UI</label>
+                <description>Change this only if you know what you are doing.</description>
+                <default>https://www.myelas.com/ELAS/WebUI</default>
+            </parameter>
+            <parameter name="restUrl" type="text" required="true">
+                <label>url to MyElas REST API</label>
+                <description>Change this only if you know what you are doing.</description>
+                <default>https://www.myelas.com/ELAS/WebUI/Security/GetCPState</default>
+            </parameter>
+	        <!-- <parameter name="pollingInterval" type="integer" required="false" min="5" max="60" unit="s">
+	            <label>Polling Interval</label>
+	            <description>Interval polling MyElas.</description>
+	            <default>15</default>
+	        </parameter>
+	        <parameter name="asyncTimeout" type="integer" required="false" min="1000" max="60000" unit="ms">
+	            <label>Async Timeout</label>
+	            <description>Timeout for asynchronous connections (in milliseconds).</description>
+	            <default>10000</default>
+	        </parameter> -->
+            <parameter name="syncTimeout" type="integer" required="false" min="500" max="15000" unit="ms">
+                <label>Timeout</label>
+                <description>Timeout for synchronous connections (in milliseconds).</description>
+                <default>2000</default>
+            </parameter>
+            <parameter name="username" type="text" required="true">
+                <label>Username</label>
+                <description>Usually an email address.</description>
+                <default>username</default>
+            </parameter>
+            <parameter name="webpass" type="text" required="true">
+                <label>Password</label>
+                <description>WEB password.</description>
+                <default>webpass</default>
+            </parameter>
+            <parameter name="pincode" type="integer" required="true">
+                <label>PIN code</label>
+                <description>System PIN code used on panel.</description>
+                <default>1</default>
+            </parameter>
+		</config-description>
+
+	</thing-type>
+	
+    <channel-type id="offlineStatus">
+        <item-type>Switch</item-type>
+        <label>Alarm offline</label>
+        <description>Is your alarm connected to MyElas server or not</description>
+        <category>AlarmStatus</category>
+        <state readOnly="true" pattern="%s" />
+    </channel-type>
+
+    <channel-type id="ongoingAlarm">
+        <item-type>Switch</item-type>
+        <label>Ongoing alarm</label>
+        <description></description>
+        <category>AlarmStatus</category>
+        <state readOnly="true" pattern="%s" />
+    </channel-type>
+
+    <channel-type id="armedPartitionsNb">
+        <item-type>Number</item-type>
+        <label>Partitions armed</label>
+        <description>Number of armed partitions</description>
+        <category>AlarmStatus</category>
+        <state readOnly="true"/>
+    </channel-type>
+
+    <channel-type id="disarmedPartitionsNb">
+        <item-type>Number</item-type>
+        <label>Partitions disarmed</label>
+        <description>Number of disarmed partitions</description>
+        <category>AlarmStatus</category>
+        <state readOnly="true"/>
+    </channel-type>
+
+    <channel-type id="partiallyArmedPartitionsNb">
+        <item-type>Number</item-type>
+        <label>Partitions partially armed</label>
+        <description>Number of partially armed partitions</description>
+        <category>AlarmStatus</category>
+        <state readOnly="true" />
+    </channel-type>
+
+
+
+</thing:thing-descriptions>
