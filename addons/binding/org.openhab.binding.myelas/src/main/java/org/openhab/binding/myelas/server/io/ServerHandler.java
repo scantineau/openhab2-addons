@@ -50,7 +50,9 @@ public class ServerHandler {
     private CookieStore cookieStore = new BasicCookieStore();
     private MyElasConfiguration config;
     private ServerDatasHandler serverDatasHandler;
+    private ServerDatasHandler previousServerDatasHandler;
     private StatusUpdateCallback statusUpdateCallback;
+    private boolean isRetrivingData = false;
 
     public ServerHandler(MyElasConfiguration config, StatusUpdateCallback statusUpdateCallback) {
         this.config = config;
@@ -62,6 +64,10 @@ public class ServerHandler {
     }
 
     public ServerDatasHandler getServerData() {
+        if (this.isRetrivingData) {
+            return this.serverDatasHandler;
+        }
+        this.isRetrivingData = true;
         if (this.config.getWebpass() == null) {
             statusUpdateCallback.updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR,
                     "Please configure credentials first");
@@ -77,7 +83,24 @@ public class ServerHandler {
                 doConnect(); // Try to connect again
             }
         }
-        return this.serverDatasHandler;
+        // It seems that MyElas Server send null values sometimes if we poll too frequently
+        // We do not want items to loose values because of null received so let's check the response
+        // and return old data instead of null
+        if (this.serverDatasHandler.isValidObject()) {
+            this.isConnected = true;
+            this.isRetrivingData = false;
+            return this.serverDatasHandler;
+        } else {
+            if (this.previousServerDatasHandler != null) {
+                if (this.previousServerDatasHandler.isValidObject()) {
+                    this.isConnected = true;
+                    this.isRetrivingData = false;
+                    return this.previousServerDatasHandler;
+                }
+            }
+            this.isRetrivingData = false;
+            return this.serverDatasHandler;
+        }
     }
 
     private void doConnect() {
@@ -96,7 +119,12 @@ public class ServerHandler {
             logger.debug("unable to login and json is empty : {}", loginJson);
             return;
         } else {
-            handleResponse(loginJson);
+            try {
+                handleResponse(loginJson);
+            } catch (CloneNotSupportedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
     }
@@ -114,13 +142,21 @@ public class ServerHandler {
             logger.debug("unable to login and json is empty : {}", pollJson);
             return;
         } else {
-            handleResponse(pollJson);
+            try {
+                handleResponse(pollJson);
+            } catch (CloneNotSupportedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
 
     }
 
-    private void handleResponse(String json) {
+    private void handleResponse(String json) throws CloneNotSupportedException {
 
+        if (this.serverDatasHandler != null) {
+            this.previousServerDatasHandler = (ServerDatasHandler) this.serverDatasHandler.clone();
+        }
         this.serverDatasHandler = ServerDatasHandler.createServerDatasHandler(json);
 
         if (this.serverDatasHandler.getError() > 0) {
@@ -140,6 +176,8 @@ public class ServerHandler {
         if (typeJson.equals(USER_PASS_PIN)) {
             jsonGenerated = "{'username' : '" + this.config.getUsername() + "'," + "'password' : '"
                     + this.config.getWebpass() + "'," + "'code' : '" + this.config.getPinCode() + "'}";
+        } else if (typeJson.equals(POLL)) {
+            jsonGenerated = "{'IsAlive' : 'true'}";
         }
         return jsonGenerated;
     }

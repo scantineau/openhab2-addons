@@ -25,7 +25,7 @@ import com.google.gson.Gson;
  *
  * @author Sébastien Cantineau - Initial contribution
  */
-public class ServerDatasHandler extends ServerDatasObject {
+public class ServerDatasHandler extends ServerDatasObject implements Cloneable {
 
     private final static Logger logger = LoggerFactory.getLogger(ServerHandler.class);
 
@@ -38,28 +38,39 @@ public class ServerDatasHandler extends ServerDatasObject {
         return gson.fromJson(json, ServerDatasHandler.class);
     }
 
+    public boolean isValidObject() {
+        readOverview();
+        return myOverview != null;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     public DecimalType getArmedPartNb() {
         readPartInfo();
-        return DecimalType.valueOf(myPartInfo.getArmedStr().split(" ")[0]);
+        return DecimalType.valueOf(myPartInfo == null ? "0" : myPartInfo.getArmedStr().split(" ")[0]);
     }
 
     public DecimalType getDisarmedPartNb() {
         readPartInfo();
-        return DecimalType.valueOf(myPartInfo.getDisarmedStr().split(" ")[0]);
+        return DecimalType.valueOf(myPartInfo == null ? "0" : myPartInfo.getDisarmedStr().split(" ")[0]);
     }
 
     public DecimalType getPartiallyArmedPartNb() {
         readPartInfo();
-        return DecimalType.valueOf(myPartInfo.getPartarmedStr().split(" ")[0]);
+        return DecimalType.valueOf(myPartInfo == null ? "0" : myPartInfo.getPartarmedStr().split(" ")[0]);
     }
 
     private void readPartInfo() {
         readOverview();
-        myPartInfo = myOverview.getPartInfo();
+        if (myOverview != null) {
+            myPartInfo = myOverview.getPartInfo();
+        }
     }
 
     private void readOverview() {
         myOverview = getOverview();
     }
-
 }

@@ -54,7 +54,7 @@ public class MyElasHandler extends BaseThingHandler implements StatusUpdateCallb
     /**
      * Refresh interval which is used to poll values from the FRITZ!Box web interface (optional, defaults to 30 s)
      */
-    private long refreshInterval = 30;
+    private long refreshInterval = 60;
     /**
      * Schedule for polling
      */
@@ -135,6 +135,7 @@ public class MyElasHandler extends BaseThingHandler implements StatusUpdateCallb
         thingBuilder.withLabel(thing.getLabel());
         updateThing(thingBuilder.build());
 
+        // tstItems.analyseItems();
         onUpdate();
     }
 
