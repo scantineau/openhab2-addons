@@ -28,12 +28,11 @@ public class RiscoCloudBindingConstants {
 
     public static final String BINDING_ID = "riscocloud";
 
-    // List of all Main Bridge properties
+    // List of all Bridge properties
     public static final String USERNAME = "username";
     public static final String WEBPASS = "webpass";
-    public static final String WEBUIURL = "webUIUrl";
 
-    // List of all Site Bridge properties
+    // List of all Site properties
     public static final String SITE_ID = "siteId";
     public static final String SITE_NAME = "siteName";
     public static final String PINCODE = "pincode";
@@ -59,12 +58,12 @@ public class RiscoCloudBindingConstants {
     public static final String DETECTORS_PROPERTY = "detectors";
 
     // List of Bridge Type UIDs
-    public static final ThingTypeUID LOGIN_BRIDGE_THING_TYPE = new ThingTypeUID(BINDING_ID, "riscoCloudServer");
-    public static final ThingTypeUID SITE_BRIDGE_THING_TYPE = new ThingTypeUID(BINDING_ID, "riscoCloudSite");
+    public static final ThingTypeUID THING_TYPE_BRIDGE = new ThingTypeUID(BINDING_ID, "riscoCloudServer");
+    public static final ThingTypeUID THING_TYPE_SITE = new ThingTypeUID(BINDING_ID, "riscoCloudSite");
 
     // List of Things Type UIDs
-    public static final ThingTypeUID OVERVIEW_THING_TYPE = new ThingTypeUID(BINDING_ID, "riscoCloudOverview");
-    public static final ThingTypeUID PART_THING_TYPE = new ThingTypeUID(BINDING_ID, "riscoCloudPart");
+    public static final ThingTypeUID THING_TYPE_OVERVIEW = new ThingTypeUID(BINDING_ID, "riscoCloudOverview");
+    public static final ThingTypeUID THING_TYPE_PART = new ThingTypeUID(BINDING_ID, "riscoCloudPart");
 
     // List of all Channel id's
     // Overview
@@ -79,9 +78,9 @@ public class RiscoCloudBindingConstants {
     public static final String CHANNEL_PART_DISARM = "partDisarm";
 
     public static final Set<ThingTypeUID> BRIDGE_THING_TYPES_UIDS = new HashSet<>(
-            Arrays.asList(LOGIN_BRIDGE_THING_TYPE, SITE_BRIDGE_THING_TYPE));
+            Arrays.asList(THING_TYPE_BRIDGE, THING_TYPE_SITE));
     public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = new HashSet<>(
-            Arrays.asList(OVERVIEW_THING_TYPE, PART_THING_TYPE));
+            Arrays.asList(THING_TYPE_OVERVIEW, THING_TYPE_PART));
 
     public static final Set<String> HANDLED_COMMANDS = new HashSet<>(Arrays.asList(ARM_FULL, ARM_PART, DISARM));
     public static final Map<String, String> REST_URLS = initMap();
@@ -93,5 +92,8 @@ public class RiscoCloudBindingConstants {
         map.put(DETECTORS_PROPERTY, DETECTORS_URL);
         return Collections.unmodifiableMap(map);
     }
+
+    // Constants
+    public static final String RISCO_CLOUD_WEBUI_URL = "https://www.riscocloud.com/ELAS/WebUI";
 
 }

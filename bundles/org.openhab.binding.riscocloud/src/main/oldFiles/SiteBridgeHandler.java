@@ -18,6 +18,7 @@ import org.eclipse.smarthome.core.thing.ThingStatusDetail;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.riscocloud.internal.RiscoCloudBindingConstants;
 import org.openhab.binding.riscocloud.json.ServerDatasHandler;
+import org.openhab.binding.riscocloud.model.RiscoCloudLoginResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,7 @@ public class SiteBridgeHandler extends RiscoCloudBridgeHandler {
     private @Nullable Configuration config = null;
     private @Nullable ServerDatasHandler serverDatasHandler;
     private @Nullable ScheduledFuture<?> refreshJob;
-    private LoginResult loginResult = new LoginResult();
+    private RiscoCloudLoginResponse riscoCloudLoginResponse = new RiscoCloudLoginResponse();
 
     public SiteBridgeHandler(Bridge bridge) {
         super(bridge);
@@ -101,34 +102,34 @@ public class SiteBridgeHandler extends RiscoCloudBridgeHandler {
 
     private void updateThings() {
         try {
-            loginResult = WebSiteInterface.webSitePoll(config);
+            riscoCloudLoginResponse = WebSiteInterface.webSitePoll(config);
         } catch (IOException e) {
-            loginResult.error = loginResult.error.trim();
-            logger.debug("Disabling thing '{}': Error '{}': {}", getThing().getUID(), loginResult.error,
-                    loginResult.errorDetail);
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, loginResult.statusDescr);
+            riscoCloudLoginResponse.error = riscoCloudLoginResponse.error.trim();
+            logger.debug("Disabling thing '{}': Error '{}': {}", getThing().getUID(), riscoCloudLoginResponse.error,
+                    riscoCloudLoginResponse.errorDetail);
+            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, riscoCloudLoginResponse.statusDescr);
         }
         // Updates the thing status accordingly
-        if (loginResult.serverDatasHandler != null && loginResult.serverDatasHandler.isValidObject()) {
+        if (riscoCloudLoginResponse.serverDatasHandler != null && riscoCloudLoginResponse.serverDatasHandler.isValidObject()) {
             // logger.debug("serverDatasHandler = {}", loginResult.serverDatasHandler.toString());
             // logger.debug("newServerDatasHandler = {}", loginResult.serverDatasHandler.toString());
-            serverDatasHandler = loginResult.serverDatasHandler;
+            serverDatasHandler = riscoCloudLoginResponse.serverDatasHandler;
         }
-        if (loginResult.error == null) {
+        if (riscoCloudLoginResponse.error == null) {
             updateStatus(ThingStatus.ONLINE);
         } else {
             // logger.debug("loginResult '{}'", loginResult.toString());
-            loginResult.error = loginResult.error.trim();
-            logger.debug("Disabling thing '{}': Error '{}': {}", getThing().getUID(), loginResult.error,
-                    loginResult.errorDetail);
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, loginResult.statusDescr);
+            riscoCloudLoginResponse.error = riscoCloudLoginResponse.error.trim();
+            logger.debug("Disabling thing '{}': Error '{}': {}", getThing().getUID(), riscoCloudLoginResponse.error,
+                    riscoCloudLoginResponse.errorDetail);
+            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, riscoCloudLoginResponse.statusDescr);
             return;
         }
 
         getThing().getThings().forEach(thing -> {
             SiteHandler handler = new SiteHandler(thing);
             handler.updateStatus(ThingStatus.ONLINE);
-            if (thing.getThingTypeUID().equals(OVERVIEW_THING_TYPE)) {
+            if (thing.getThingTypeUID().equals(THING_TYPE_OVERVIEW)) {
                 handler.getChannels().forEach(channel -> {
                     logger.debug("Update channel '{}': with type '{}': and label {} : and id {}", channel.getUID(),
                             channel.getChannelTypeUID(), channel.getLabel(), channel.getUID().getId());
@@ -150,7 +151,7 @@ public class SiteBridgeHandler extends RiscoCloudBridgeHandler {
                             break;
                     }
                 });
-            } else if (thing.getThingTypeUID().equals(PART_THING_TYPE)) {
+            } else if (thing.getThingTypeUID().equals(THING_TYPE_PART)) {
                 handler.getChannels().forEach(channel -> {
                     logger.debug("Update channel '{}': with type '{}': and label {} : and id {}", channel.getUID(),
                             channel.getChannelTypeUID(), channel.getLabel(), channel.getUID().getId());

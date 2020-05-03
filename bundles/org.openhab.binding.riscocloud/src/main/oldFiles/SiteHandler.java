@@ -105,7 +105,7 @@ public class SiteHandler extends BaseThingHandler {
     }
 
     protected int getPartId() throws Exception {
-        if (getThing().getThingTypeUID() == PART_THING_TYPE) {
+        if (getThing().getThingTypeUID() == THING_TYPE_PART) {
             throw new Exception("BAD_THING_TYPE");
         }
         Configuration config = getThing().getConfiguration();

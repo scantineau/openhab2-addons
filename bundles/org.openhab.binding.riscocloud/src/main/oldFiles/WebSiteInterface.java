@@ -24,8 +24,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openhab.binding.riscocloud.internal.RiscoCloudBindingConstants;
-import org.openhab.binding.riscocloud.internal.RiscoCloudConfiguration;
 import org.openhab.binding.riscocloud.json.ServerDatasHandler;
+import org.openhab.binding.riscocloud.model.RiscoCloudLoginResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,20 +48,20 @@ public final class WebSiteInterface {
     final static Logger logger = LoggerFactory.getLogger(WebSiteInterface.class);
     private final static Gson gson = new Gson();
 
-    public static LoginResult webSiteLogin(Configuration config) {
-        LoginResult loginResult = new LoginResult();
+    public static RiscoCloudLoginResponse webSiteLogin(Configuration config) {
+        RiscoCloudLoginResponse riscoCloudLoginResponse = new RiscoCloudLoginResponse();
 
         if (config.get(RiscoCloudBindingConstants.USERNAME) == null
                 || config.get(RiscoCloudBindingConstants.WEBPASS) == null) {
-            loginResult.error += " Parameter 'username' and 'webpass' must be configured.";
-            loginResult.statusDescr = "Missing credentials";
+            riscoCloudLoginResponse.error += " Parameter 'username' and 'webpass' must be configured.";
+            riscoCloudLoginResponse.statusDescr = "Missing credentials";
         } else {
             try {
                 Document document = null;
                 String loginPage = null;
                 String content = genInputJson(USER_PASS, config, 0);
                 InputStream stream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
-                loginPage = HttpUtil.executeUrl("POST", (String) config.get(RiscoCloudBindingConstants.WEBUIURL), null,
+                loginPage = HttpUtil.executeUrl("POST", (String) config.get(RiscoCloudBindingConstants.RISCO_CLOUD_WEBUI_URL), null,
                         stream, "application/json", 20000);
                 // logger.debug("loginPage=" + loginPage);
 
@@ -77,34 +77,34 @@ public final class WebSiteInterface {
                     Matcher matcher = pattern.matcher(site.attr("id"));
                     if (matcher.find()) {
                         // logger.debug("site added " + matcher.group(1) + "-" + site.text());
-                        loginResult.siteList.put(Integer.parseInt(matcher.group(1)), site.text());
+                        riscoCloudLoginResponse.siteList.put(Integer.parseInt(matcher.group(1)), site.text());
                     }
                 }
                 // logger.debug("siteList : " + loginResult.siteList.values() + " siteList.isEmpty() : " +
                 // loginResult.siteList.isEmpty());
-                if (loginResult.siteList.isEmpty()) {
-                    loginResult.error += "No site found";
-                    loginResult.statusDescr = "@text/offline.site-error";
+                if (riscoCloudLoginResponse.siteList.isEmpty()) {
+                    riscoCloudLoginResponse.error += "No site found";
+                    riscoCloudLoginResponse.statusDescr = "@text/offline.site-error";
                 }
             } catch (IOException e) {
-                loginResult.error += "Connection error to " + config.get(RiscoCloudBindingConstants.WEBUIURL);
-                loginResult.errorDetail = e.getMessage();
-                loginResult.statusDescr = "@text/offline.uri-error-1";
+                riscoCloudLoginResponse.error += "Connection error to " + config.get(RiscoCloudBindingConstants.RISCO_CLOUD_WEBUI_URL);
+                riscoCloudLoginResponse.errorDetail = e.getMessage();
+                riscoCloudLoginResponse.statusDescr = "@text/offline.uri-error-1";
 
             } catch (IllegalArgumentException e) {
-                loginResult.error += "caught exception !";
-                loginResult.errorDetail = e.getMessage();
-                loginResult.statusDescr = "@text/offline.uri-error-2";
+                riscoCloudLoginResponse.error += "caught exception !";
+                riscoCloudLoginResponse.errorDetail = e.getMessage();
+                riscoCloudLoginResponse.statusDescr = "@text/offline.uri-error-2";
             }
         }
-        return loginResult;
+        return riscoCloudLoginResponse;
     }
 
-    public static LoginResult webSitePoll(Configuration config) throws IOException {
-        LoginResult loginResult = new LoginResult();
+    public static RiscoCloudLoginResponse webSitePoll(Configuration config) throws IOException {
+        RiscoCloudLoginResponse riscoCloudLoginResponse = new RiscoCloudLoginResponse();
 
         if (config == null) {
-            loginResult = doConnect(config);
+            riscoCloudLoginResponse = doConnect(config);
         } else {
 
             String jsonResponse = null;
@@ -119,7 +119,7 @@ public final class WebSiteInterface {
             JsonObject jsonValueObject = parser.parse(jsonResponse).getAsJsonObject();
             JsonElement jsonElement = jsonValueObject.get("error");
             if (!jsonElement.isJsonNull() && jsonElement.getAsInt() != 0) {
-                loginResult = doConnect(config);
+                riscoCloudLoginResponse = doConnect(config);
             } else {
                 // logger.debug("apiResponse before fill = {}", jsonResponse);
                 for (Map.Entry<String, String> entry : REST_URLS.entrySet()) {
@@ -136,20 +136,20 @@ public final class WebSiteInterface {
                 }
                 // logger.debug("apiResponse after fill = {}", jsonResponse);
                 // Map the JSON response to an object
-                loginResult.serverDatasHandler = gson.fromJson(jsonResponse, ServerDatasHandler.class);
-                if (loginResult.serverDatasHandler.getError() != 0) {
-                    loginResult = doConnect(config);
+                riscoCloudLoginResponse.serverDatasHandler = gson.fromJson(jsonResponse, ServerDatasHandler.class);
+                if (riscoCloudLoginResponse.serverDatasHandler.getError() != 0) {
+                    riscoCloudLoginResponse = doConnect(config);
                 }
             }
         }
 
-        return loginResult;
+        return riscoCloudLoginResponse;
     }
 
-    public static LoginResult webSiteSendCommand(Configuration config, String command, int idPart) throws IOException {
-        LoginResult loginResult = new LoginResult();
+    public static RiscoCloudLoginResponse webSiteSendCommand(Configuration config, String command, int idPart) throws IOException {
+        RiscoCloudLoginResponse riscoCloudLoginResponse = new RiscoCloudLoginResponse();
         if (config == null) {
-            return loginResult;
+            return riscoCloudLoginResponse;
         }
 
         // switch (command) {
@@ -168,17 +168,17 @@ public final class WebSiteInterface {
         jsonResponse = HttpUtil.executeUrl("POST", (String) config.get(RiscoCloudBindingConstants.ARM_DISARM_URL), null,
                 stream, "application/json", 20000);
 
-        return loginResult;
+        return riscoCloudLoginResponse;
     }
 
-    private @Nullable static LoginResult doConnect(Configuration config) {
-        LoginResult loginResult = new LoginResult();
+    private @Nullable static RiscoCloudLoginResponse doConnect(Configuration config) {
+        RiscoCloudLoginResponse riscoCloudLoginResponse = new RiscoCloudLoginResponse();
         ServerDatasHandler newServerDatasHandler = null;
 
         // Check if a pincode has been provided during the bridge creation
         if (config.get(RiscoCloudBindingConstants.PINCODE) == null) {
-            loginResult.error += " Parameter 'pincode' must be configured.";
-            loginResult.statusDescr = "Missing credentials";
+            riscoCloudLoginResponse.error += " Parameter 'pincode' must be configured.";
+            riscoCloudLoginResponse.statusDescr = "Missing credentials";
         } else {
             try {
                 // Run the HTTP request login
@@ -201,23 +201,23 @@ public final class WebSiteInterface {
                 // Map the JSON response to an object
                 newServerDatasHandler = gson.fromJson(jsonResponse, ServerDatasHandler.class);
                 if (newServerDatasHandler.getError() != 0) {
-                    loginResult.error = "Login refused";
-                    loginResult.errorDetail = "" + newServerDatasHandler.getError();
-                    loginResult.statusDescr = "Error : possible invalid credentials";
+                    riscoCloudLoginResponse.error = "Login refused";
+                    riscoCloudLoginResponse.errorDetail = "" + newServerDatasHandler.getError();
+                    riscoCloudLoginResponse.statusDescr = "Error : possible invalid credentials";
                 } else {
                 }
 
             } catch (IllegalArgumentException e) {
-                loginResult.errorDetail = e.getMessage();
-                loginResult.statusDescr = "@text/offline.uri-error";
+                riscoCloudLoginResponse.errorDetail = e.getMessage();
+                riscoCloudLoginResponse.statusDescr = "@text/offline.uri-error";
             } catch (IOException e) {
-                loginResult.error += "Connection error to " + config.get(RiscoCloudBindingConstants.SITE_URL);
-                loginResult.statusDescr = "@text/offline.uri-error";
+                riscoCloudLoginResponse.error += "Connection error to " + config.get(RiscoCloudBindingConstants.SITE_URL);
+                riscoCloudLoginResponse.statusDescr = "@text/offline.uri-error";
             }
 
         }
 
-        return loginResult;
+        return riscoCloudLoginResponse;
     }
 
     private static String genInputJson(String typeJson, Configuration config, int idPart) {

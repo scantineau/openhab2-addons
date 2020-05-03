@@ -1,0 +1,606 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "additionalProperties": true,
+  "required": [
+    "error",
+    "detectors"
+  ],
+  "properties": {
+    "error": {
+      "$id": "#/properties/error",
+      "type": "integer",
+      "title": "The Error Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": 0,
+      "examples": [
+        0.0
+      ]
+    },
+    "detectors": {
+      "$id": "#/properties/detectors",
+      "type": "object",
+      "title": "The Detectors Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": {},
+      "examples": [
+        {
+          "parts": [
+            {
+              "name": "maison",
+              "detectors": [
+                {
+                  "filter": "",
+                  "data_icon": "detector",
+                  "strTimeval": "",
+                  "name": "cuisine",
+                  "classAttrib": "",
+                  "bypassed": false,
+                  "id": 1.0
+                },
+                {
+                  "classAttrib": "",
+                  "bypassed": false,
+                  "id": 2.0,
+                  "filter": "",
+                  "data_icon": "detector",
+                  "strTimeval": "",
+                  "name": "sejour"
+                },
+                {
+                  "id": 3.0,
+                  "filter": "",
+                  "data_icon": "detector",
+                  "strTimeval": "",
+                  "name": "buanderie",
+                  "classAttrib": "",
+                  "bypassed": false
+                },
+                {
+                  "id": 4.0,
+                  "data_icon": "detector",
+                  "filter": "",
+                  "strTimeval": "",
+                  "name": "hall d&#39;entree",
+                  "classAttrib": "",
+                  "bypassed": false
+                },
+                {
+                  "filter": "",
+                  "data_icon": "detector",
+                  "strTimeval": "",
+                  "name": "bureau",
+                  "classAttrib": "",
+                  "bypassed": false,
+                  "id": 5.0
+                },
+                {
+                  "bypassed": false,
+                  "id": 6.0,
+                  "data_icon": "detector",
+                  "filter": "",
+                  "strTimeval": "",
+                  "name": "sra",
+                  "classAttrib": ""
+                },
+                {
+                  "classAttrib": "",
+                  "bypassed": false,
+                  "id": 7.0,
+                  "data_icon": "detector",
+                  "filter": "",
+                  "strTimeval": "",
+                  "name": "sri"
+                },
+                {
+                  "id": 8.0,
+                  "data_icon": "detector",
+                  "filter": "",
+                  "strTimeval": "",
+                  "name": "inc hall nuit",
+                  "classAttrib": "",
+                  "bypassed": false
+                },
+                {
+                  "id": 9.0,
+                  "filter": "",
+                  "data_icon": "detector",
+                  "strTimeval": "",
+                  "name": "inc hall rez",
+                  "classAttrib": "",
+                  "bypassed": false
+                },
+                {
+                  "bypassed": false,
+                  "id": 10.0,
+                  "data_icon": "detector",
+                  "filter": "",
+                  "strTimeval": "",
+                  "name": "inc cellier",
+                  "classAttrib": ""
+                },
+                {
+                  "classAttrib": "",
+                  "bypassed": false,
+                  "id": 11.0,
+                  "filter": "",
+                  "data_icon": "detector",
+                  "strTimeval": "",
+                  "name": "dt hall nuit"
+                },
+                {
+                  "name": "GARAGE",
+                  "classAttrib": "",
+                  "bypassed": false,
+                  "id": 12.0,
+                  "data_icon": "detector",
+                  "filter": "",
+                  "strTimeval": ""
+                }
+              ],
+              "id": 0.0,
+              "armIcon": "/elas/WebUI/Content/images/ico-disarmed.png"
+            }
+          ]
+        }
+      ],
+      "additionalProperties": true,
+      "required": [
+        "parts"
+      ],
+      "properties": {
+        "parts": {
+          "$id": "#/properties/detectors/properties/parts",
+          "type": "array",
+          "title": "The Parts Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+            [
+              {
+                "id": 0.0,
+                "armIcon": "/elas/WebUI/Content/images/ico-disarmed.png",
+                "name": "maison",
+                "detectors": [
+                  {
+                    "name": "cuisine",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 1.0,
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": ""
+                  },
+                  {
+                    "bypassed": false,
+                    "id": 2.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "sejour",
+                    "classAttrib": ""
+                  },
+                  {
+                    "id": 3.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "buanderie",
+                    "classAttrib": "",
+                    "bypassed": false
+                  },
+                  {
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 4.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "hall d&#39;entree"
+                  },
+                  {
+                    "id": 5.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "bureau",
+                    "classAttrib": "",
+                    "bypassed": false
+                  },
+                  {
+                    "id": 6.0,
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": "",
+                    "name": "sra",
+                    "classAttrib": "",
+                    "bypassed": false
+                  },
+                  {
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 7.0,
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": "",
+                    "name": "sri"
+                  },
+                  {
+                    "id": 8.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "inc hall nuit",
+                    "classAttrib": "",
+                    "bypassed": false
+                  },
+                  {
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": "",
+                    "name": "inc hall rez",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 9.0
+                  },
+                  {
+                    "id": 10.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "inc cellier",
+                    "classAttrib": "",
+                    "bypassed": false
+                  },
+                  {
+                    "bypassed": false,
+                    "id": 11.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "dt hall nuit",
+                    "classAttrib": ""
+                  },
+                  {
+                    "id": 12.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "GARAGE",
+                    "classAttrib": "",
+                    "bypassed": false
+                  }
+                ]
+              }
+            ]
+          ],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/detectors/properties/parts/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "id": 0.0,
+                "armIcon": "/elas/WebUI/Content/images/ico-disarmed.png",
+                "name": "maison",
+                "detectors": [
+                  {
+                    "name": "cuisine",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 1.0,
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": ""
+                  },
+                  {
+                    "name": "sejour",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 2.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": ""
+                  },
+                  {
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "buanderie",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 3.0
+                  },
+                  {
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 4.0,
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": "",
+                    "name": "hall d&#39;entree"
+                  },
+                  {
+                    "name": "bureau",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 5.0,
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": ""
+                  },
+                  {
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 6.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "sra"
+                  },
+                  {
+                    "name": "sri",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 7.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": ""
+                  },
+                  {
+                    "bypassed": false,
+                    "id": 8.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "inc hall nuit",
+                    "classAttrib": ""
+                  },
+                  {
+                    "bypassed": false,
+                    "id": 9.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "inc hall rez",
+                    "classAttrib": ""
+                  },
+                  {
+                    "strTimeval": "",
+                    "name": "inc cellier",
+                    "classAttrib": "",
+                    "bypassed": false,
+                    "id": 10.0,
+                    "data_icon": "detector",
+                    "filter": ""
+                  },
+                  {
+                    "bypassed": false,
+                    "id": 11.0,
+                    "filter": "",
+                    "data_icon": "detector",
+                    "strTimeval": "",
+                    "name": "dt hall nuit",
+                    "classAttrib": ""
+                  },
+                  {
+                    "bypassed": false,
+                    "id": 12.0,
+                    "data_icon": "detector",
+                    "filter": "",
+                    "strTimeval": "",
+                    "name": "GARAGE",
+                    "classAttrib": ""
+                  }
+                ]
+              }
+            ],
+            "additionalProperties": true,
+            "required": [
+              "id",
+              "name",
+              "armIcon",
+              "detectors"
+            ],
+            "properties": {
+              "id": {
+                "$id": "#/properties/detectors/properties/parts/items/properties/id",
+                "type": "integer",
+                "title": "The Id Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                  0.0
+                ]
+              },
+              "name": {
+                "$id": "#/properties/detectors/properties/parts/items/properties/name",
+                "type": "string",
+                "title": "The Name Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "maison"
+                ]
+              },
+              "armIcon": {
+                "$id": "#/properties/detectors/properties/parts/items/properties/armIcon",
+                "type": "string",
+                "title": "The Armicon Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "/elas/WebUI/Content/images/ico-disarmed.png"
+                ]
+              },
+              "detectors": {
+                "$id": "#/properties/detectors/properties/parts/items/properties/detectors",
+                "type": "array",
+                "title": "The Detectors Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": [],
+                "examples": [
+                  [
+                    {
+                      "classAttrib": "",
+                      "bypassed": false,
+                      "id": 1.0,
+                      "data_icon": "detector",
+                      "filter": "",
+                      "strTimeval": "",
+                      "name": "cuisine"
+                    },
+                    {
+                      "bypassed": false,
+                      "id": 2.0,
+                      "filter": "",
+                      "data_icon": "detector",
+                      "strTimeval": "",
+                      "name": "sejour",
+                      "classAttrib": ""
+                    },
+                    {
+                      "id": 3.0,
+                      "data_icon": "detector",
+                      "filter": "",
+                      "strTimeval": "",
+                      "name": "buanderie",
+                      "classAttrib": "",
+                      "bypassed": false
+                    }
+                  ]
+                ],
+                "additionalItems": true,
+                "items": {
+                  "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items",
+                  "type": "object",
+                  "title": "The Items Schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": {},
+                  "examples": [
+                    {
+                      "classAttrib": "",
+                      "bypassed": false,
+                      "id": 1.0,
+                      "data_icon": "detector",
+                      "filter": "",
+                      "strTimeval": "",
+                      "name": "cuisine"
+                    },
+                    {
+                      "classAttrib": "",
+                      "bypassed": false,
+                      "id": 2.0,
+                      "data_icon": "detector",
+                      "filter": "",
+                      "strTimeval": "",
+                      "name": "sejour"
+                    },
+                    {
+                      "bypassed": false,
+                      "id": 3.0,
+                      "filter": "",
+                      "data_icon": "detector",
+                      "strTimeval": "",
+                      "name": "buanderie",
+                      "classAttrib": ""
+                    }
+                  ],
+                  "additionalProperties": true,
+                  "required": [
+                    "id",
+                    "bypassed",
+                    "filter",
+                    "classAttrib",
+                    "data_icon",
+                    "name",
+                    "strTimeval"
+                  ],
+                  "properties": {
+                    "id": {
+                      "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items/properties/id",
+                      "type": "integer",
+                      "title": "The Id Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": 0,
+                      "examples": [
+                        1.0
+                      ]
+                    },
+                    "bypassed": {
+                      "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items/properties/bypassed",
+                      "type": "boolean",
+                      "title": "The Bypassed Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": false,
+                      "examples": [
+                        false
+                      ]
+                    },
+                    "filter": {
+                      "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items/properties/filter",
+                      "type": "string",
+                      "title": "The Filter Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        ""
+                      ]
+                    },
+                    "classAttrib": {
+                      "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items/properties/classAttrib",
+                      "type": "string",
+                      "title": "The Classattrib Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        ""
+                      ]
+                    },
+                    "data_icon": {
+                      "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items/properties/data_icon",
+                      "type": "string",
+                      "title": "The Data_icon Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        "detector"
+                      ]
+                    },
+                    "name": {
+                      "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items/properties/name",
+                      "type": "string",
+                      "title": "The Name Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        "cuisine"
+                      ]
+                    },
+                    "strTimeval": {
+                      "$id": "#/properties/detectors/properties/parts/items/properties/detectors/items/properties/strTimeval",
+                      "type": "string",
+                      "title": "The Strtimeval Schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        ""
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

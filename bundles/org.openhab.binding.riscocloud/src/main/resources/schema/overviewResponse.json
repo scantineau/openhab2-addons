@@ -1,0 +1,304 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "additionalProperties": true,
+  "required": [
+    "error",
+    "overview"
+  ],
+  "properties": {
+    "error": {
+      "$id": "#/properties/error",
+      "type": "integer",
+      "title": "The Error Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": 0,
+      "examples": [
+        0.0
+      ]
+    },
+    "overview": {
+      "$id": "#/properties/overview",
+      "type": "object",
+      "title": "The Overview Schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": {},
+      "examples": [
+        {
+          "cameraSlides": [],
+          "errorIconHint": "",
+          "bypassed": [],
+          "lastAlarms": [
+            {
+              "YTime": "2018-9-30 16:17:00",
+              "title": "Alarm - &#39;maison&#39;, &#39;GARAGE&#39;",
+              "dateStr": "30/09/2018",
+              "timeStr": "16:17",
+              "ViUID": ""
+            },
+            {
+              "YTime": "2018-9-29 07:34:00",
+              "title": "Alarm - &#39;maison&#39;, &#39;sejour&#39;",
+              "dateStr": "29/09/2018",
+              "timeStr": "07:34",
+              "ViUID": ""
+            },
+            {
+              "title": "Alarm - &#39;maison&#39;, &#39;GARAGE&#39;",
+              "dateStr": "10/09/2018",
+              "timeStr": "07:20",
+              "ViUID": "",
+              "YTime": "2018-9-10 07:20:00"
+            }
+          ],
+          "partInfo": {
+            "partarmedStr": "0 Partitions ",
+            "armedStr": "0 Partitions ",
+            "disarmedStr": "1 Partition"
+          }
+        }
+      ],
+      "additionalProperties": true,
+      "required": [
+        "partInfo",
+        "lastAlarms",
+        "bypassed",
+        "cameraSlides",
+        "errorIconHint"
+      ],
+      "properties": {
+        "partInfo": {
+          "$id": "#/properties/overview/properties/partInfo",
+          "type": "object",
+          "title": "The Partinfo Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+            {
+              "partarmedStr": "0 Partitions ",
+              "armedStr": "0 Partitions ",
+              "disarmedStr": "1 Partition"
+            }
+          ],
+          "additionalProperties": true,
+          "required": [
+            "armedStr",
+            "disarmedStr",
+            "partarmedStr"
+          ],
+          "properties": {
+            "armedStr": {
+              "$id": "#/properties/overview/properties/partInfo/properties/armedStr",
+              "type": "string",
+              "title": "The Armedstr Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "0 Partitions "
+              ]
+            },
+            "disarmedStr": {
+              "$id": "#/properties/overview/properties/partInfo/properties/disarmedStr",
+              "type": "string",
+              "title": "The Disarmedstr Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "1 Partition"
+              ]
+            },
+            "partarmedStr": {
+              "$id": "#/properties/overview/properties/partInfo/properties/partarmedStr",
+              "type": "string",
+              "title": "The Partarmedstr Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                "0 Partitions "
+              ]
+            }
+          }
+        },
+        "lastAlarms": {
+          "$id": "#/properties/overview/properties/lastAlarms",
+          "type": "array",
+          "title": "The Lastalarms Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+            [
+              {
+                "YTime": "2018-9-30 16:17:00",
+                "title": "Alarm - &#39;maison&#39;, &#39;GARAGE&#39;",
+                "dateStr": "30/09/2018",
+                "timeStr": "16:17",
+                "ViUID": ""
+              },
+              {
+                "title": "Alarm - &#39;maison&#39;, &#39;sejour&#39;",
+                "dateStr": "29/09/2018",
+                "timeStr": "07:34",
+                "ViUID": "",
+                "YTime": "2018-9-29 07:34:00"
+              },
+              {
+                "title": "Alarm - &#39;maison&#39;, &#39;GARAGE&#39;",
+                "dateStr": "10/09/2018",
+                "timeStr": "07:20",
+                "ViUID": "",
+                "YTime": "2018-9-10 07:20:00"
+              }
+            ]
+          ],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/overview/properties/lastAlarms/items",
+            "type": "object",
+            "title": "The Items Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "ViUID": "",
+                "YTime": "2018-9-30 16:17:00",
+                "title": "Alarm - &#39;maison&#39;, &#39;GARAGE&#39;",
+                "dateStr": "30/09/2018",
+                "timeStr": "16:17"
+              },
+              {
+                "YTime": "2018-9-29 07:34:00",
+                "title": "Alarm - &#39;maison&#39;, &#39;sejour&#39;",
+                "dateStr": "29/09/2018",
+                "timeStr": "07:34",
+                "ViUID": ""
+              },
+              {
+                "ViUID": "",
+                "YTime": "2018-9-10 07:20:00",
+                "title": "Alarm - &#39;maison&#39;, &#39;GARAGE&#39;",
+                "dateStr": "10/09/2018",
+                "timeStr": "07:20"
+              }
+            ],
+            "additionalProperties": true,
+            "required": [
+              "dateStr",
+              "timeStr",
+              "title",
+              "ViUID",
+              "YTime"
+            ],
+            "properties": {
+              "dateStr": {
+                "$id": "#/properties/overview/properties/lastAlarms/items/properties/dateStr",
+                "type": "string",
+                "title": "The Datestr Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "30/09/2018"
+                ]
+              },
+              "timeStr": {
+                "$id": "#/properties/overview/properties/lastAlarms/items/properties/timeStr",
+                "type": "string",
+                "title": "The Timestr Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "16:17"
+                ]
+              },
+              "title": {
+                "$id": "#/properties/overview/properties/lastAlarms/items/properties/title",
+                "type": "string",
+                "title": "The Title Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "Alarm - &#39;maison&#39;, &#39;GARAGE&#39;"
+                ]
+              },
+              "ViUID": {
+                "$id": "#/properties/overview/properties/lastAlarms/items/properties/ViUID",
+                "type": "string",
+                "title": "The Viuid Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  ""
+                ]
+              },
+              "YTime": {
+                "$id": "#/properties/overview/properties/lastAlarms/items/properties/YTime",
+                "type": "string",
+                "title": "The Ytime Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "2018-9-30 16:17:00"
+                ]
+              }
+            }
+          }
+        },
+        "bypassed": {
+          "$id": "#/properties/overview/properties/bypassed",
+          "type": "array",
+          "title": "The Bypassed Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+            []
+          ],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/overview/properties/bypassed/items",
+            "type": "null",
+            "title": "The Items Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": null,
+            "examples": [
+              null
+            ]
+          }
+        },
+        "cameraSlides": {
+          "$id": "#/properties/overview/properties/cameraSlides",
+          "type": "array",
+          "title": "The Cameraslides Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+            []
+          ],
+          "additionalItems": true,
+          "items": {
+            "$id": "#/properties/overview/properties/cameraSlides/items",
+            "type": "null",
+            "title": "The Items Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": null,
+            "examples": [
+              null
+            ]
+          }
+        },
+        "errorIconHint": {
+          "$id": "#/properties/overview/properties/errorIconHint",
+          "type": "string",
+          "title": "The Erroriconhint Schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": "",
+          "examples": [
+            ""
+          ]
+        }
+      }
+    }
+  }
+}

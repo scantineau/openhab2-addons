@@ -10,6 +10,8 @@ package org.openhab.binding.riscocloud.json;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import org.openhab.binding.riscocloud.domain.Detectors;
+import org.openhab.binding.riscocloud.domain.Overview;
 
 import java.util.List;
 
